@@ -1,0 +1,44 @@
+create database jinal;
+drop database jinal;
+use jinal;
+-- 1-- 
+create table studnt(Rollno int,Name varchar(30),Branch varchar(30),primary key(Rollno));
+insert into studnt values(1,'Jay','Computer Science'),(2,'Suhani','Electronic and Com'),(3,'Kriti','Electronic and Com');
+
+create table Exam(id int,S_code varchar(20),Marks int,P_code varchar(10),Rollno int,primary key(id),foreign key(Rollno) references studnt(Rollno));
+
+-- 2-- 
+create table person(FirstName varchar(20),Lastname varchar(20),Address varchar(20),city varchar(20),age int);
+insert into person values('mickey','mouse','102 fantasy way','anaheim',73),('bat','man','321 cavem ave','gotham',54),('Wonder','Womwen','987 Truth way',
+'Paredise',39),('Donald','Duck','555 Quack Street','Mallard',65),('Bugs','Bunny','567 Carrot Street','Rascal',58),('Wiley','Coyote','999 Acme Way','Canyon',61),
+('Cat','Women','234 Purrfect Street','Hairball',32),('Tweety','Bird','543','Itotltaw',28);
+
+-- 3-- 
+create table Employee(Employee_id int,First_name varchar(30),Last_name varchar(30),Salary int,Joining_date varchar(30),
+Department varchar(20),primary key(Employee_id));
+
+create table incentive(Employee_ref_id int,incentive_date varchar(30),incentive_amount int,primary key(Employee_ref_id),
+foreign key(Employee_id) references Employee(Employee_id));
+insert into incentive values(1,'01-FEB-13',5000),(2,'01-FEB-13',3000),(3,'01-FEB-13',4000),(4,'01-JAN-13',4500),(5,'01-jAN-13',3500);
+
+select * from Employee where First_name = 'Tom';
+select * from Employee order by First_name asc;
+select * from Employee where First_name like 'j%';
+select max(salary) from Employee where Department = 'Banking';
+select max(salary) from Employee where Department = 'Insurance';
+select max(salary) from Employee where Department = 'Services';
+select * from Employee order by salary asc;
+select Employee.First_name,incentive.incentive_amount from Employee inner join incentive on
+ Employee.Employee_id = incentive.Employee_id where incentive.incentive_amount > 3000;
+ 
+create table Employee_backup(Employee_id int,First_name varchar(30),Last_name varchar(30),Salary int,Joining_date varchar(30),Department varchar(20));
+
+ -- 4-- 
+ create table salesperson(sno int,sname varchar(20),city varchar(20),comm int ,primary key(sno));
+ alter table salesperson modify comm float;
+ 
+ create table customer(cnm int,cname varchar(20),city varchar(20),reting int,sno int,primary key(cnm),foreign key(sno) references salesperson(sno));
+ select * from salesperson where city ='london' and comm >.11;	
+select * from salesperson  where city ='london' or city='barcelona';
+select * from salesperson where comm>.10 and comm<.12;
+select * from customer where reting<=100 and city='roe';
